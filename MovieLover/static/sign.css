@@ -1,0 +1,59 @@
+
+.button {
+    background-color:#3DA152;
+    color:#ffffff;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border:none;
+    cursor: pointer;
+    width:100%
+}
+
+p {
+    font-size: 15px;
+    color: #625c5c;
+}
+
+td {
+    font-size: 18px;
+    color:#666666;
+}
+
+input[type=text], input[type=password] {
+    display: inline-block;
+    border: 1px solid;
+    width: 100%;
+    padding:12px 20px;
+    margin:8px 0;
+    border-color:#ccc;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+table {
+    border:2px solid #e1e0e0;
+    padding:14px 20px;
+    margin:0 auto;
+}
+
+.hint {
+    font-family:monospace;
+    color:#3DA152;
+}
+
+h1 h2 {
+    color:#524646;
+    font-family:inherit;
+}
+
+link {
+    color:#625c5c;
+    font-size: 15px;
+}
+
+
+
+
+
+
+

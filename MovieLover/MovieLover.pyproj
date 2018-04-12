@@ -6,8 +6,7 @@
     <ProjectGuid>89aef2bc-88ab-40db-a5b2-0210f7ee74ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <ProjectTypeGuids>{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>server.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -17,6 +16,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>MovieLover</Name>
     <RootNamespace>MovieLover</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +27,55 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\BaseHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\DetailHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\LoginHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\LogoutHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\MovieHanlder.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\PaymentHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\SeatsHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\SignUpHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Handlers\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Settings.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+    <Folder Include="template\" />
+    <Folder Include="static\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="template\login.html" />
+    <Content Include="static\sign.css" />
+    <Content Include="template\signup.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
