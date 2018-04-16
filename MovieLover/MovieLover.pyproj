@@ -42,6 +42,9 @@
     <Compile Include="Handlers\LogoutHandler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Handlers\MainHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Handlers\MovieHanlder.py">
       <SubType>Code</SubType>
     </Compile>
@@ -69,13 +72,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\" />
+    <Folder Include="static\image\" />
     <Folder Include="template\" />
     <Folder Include="static\" />
+    <Folder Include="D:\workspace\MovieLover\MovieLover\static\image\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="static\jquery.seat-charts.min.js" />
+    <Content Include="template\detail.html" />
+    <Content Include="static\image\caribbean.jpg" />
+    <Content Include="static\image\crown.jpg" />
+    <Content Include="static\image\swan.jpg" />
+    <Content Include="static\image\transformer.jpg" />
+    <Content Include="template\index.html" />
+    <Content Include="template\payment.html" />
+    <Content Include="template\seats.html" />
     <Content Include="template\login.html" />
     <Content Include="static\sign.css" />
     <Content Include="template\signup.html" />
+    <Content Include="template\success.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

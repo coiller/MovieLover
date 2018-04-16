@@ -6,16 +6,16 @@ from Handlers import *
 from tornado.options import define, options
 
 define("port", default=8888, help="run on the given port", type=int)
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, world")
-
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", MainHandler),
             (r"/login", LoginHandler),
+            (r"/logout", LogoutHandler),
             (r"/signup", SignUpHandler),
+            (r"/show/(\d+)",DetailHandler),
+            (r"/show/(\d+)/seats",SeatsHandler),
+            (r"/show/(\d+)/payment",PaymentHandler)
         ]
         settings = {
             "template_path":Settings.TEMPLATE_PATH,

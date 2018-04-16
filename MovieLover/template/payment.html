@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Movie Lover</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Movie Lover</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if username==None %}
+                <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% else %}
+                <li style="margin-top: 10px;font-size: 20px;color:  white;">Hi {{username}}</li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                {% end %}
+            </ul>
+        </div>
+    </nav>
+
+    {% if start!=None %}
+    <script>
+    // Set the date we're counting down to
+    var countDownDate = {{start}}+1000*5*60;
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for minutes and seconds
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="demo"
+        document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text
+        if (distance <= 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Please rechoose your seat.";
+            window.alert("Time out!");
+            window.location.replace(window.location.pathname.replace("payment", "seats"));
+        }
+    }, 1000);
+    </script>
+    {% end %}
+    <p id="timer"></p>
+    <p>title:{{detail[0]}}</p>
+    <p>showtime:{{detail[1]}}</p>
+    <p>theater{{detail[2]}}</p>
+    <ul>
+        seats:
+        {% for seat in seats %}
+        <li>{{ seat }}</li>
+        {% end %}
+    </ul>
+    {% if error=="seats taken" %}
+    <p>Oops! You are late. <a id="seat" href="#">Choose another seat!</a></p>
+    <script>document.getElementById('seat').setAttribute('href', window.location.pathname.replace('payment', 'seats'));</script>
+    {% else%}
+    <form id="p" method="post" action="#">
+        <input id="pay" type="submit" value="Pay" />
+    </form>
+    {%if error=="unfinish"%}
+    <script>
+        window.alert("Please finish your last payment!");
+        var seats = "{% raw seats %}".replace(/'/g, "\"");
+        document.getElementById("p").setAttribute("action",window.location.pathname+"?seats=" + seats);
+    </script>
+    {%end%}
+    {% end %}
+</body>
+</html>

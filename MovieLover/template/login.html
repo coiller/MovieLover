@@ -1,8 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Login Page</title>
+    <title>Movie Lover</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ static_url("sign.css") }}">
 </head>
 <body>
@@ -18,11 +22,12 @@
                     <td>Password:</td>
                     <td><input type="password" name="password" required="required"></td>
                 </tr>
+                <input id="back" type="hidden" name="back" value="" />
                 <tr>
                     <td colspan="2" align="center"><input class="button" type="submit" value="Login" /></td>
                     <p class="hint" align="center">
                         {% if error !=None %}
-                            {{error}}
+                        {{error}}
                         {% end %}
                     </p>
                 </tr>
@@ -30,5 +35,16 @@
         </table>
         <p class="link" align="center">Not have an account yet? <a href="signup">Go to sign up</a></p>
     </form>
+    <script>
+        var url = window.location.search;
+        if (url == "") {
+            url = '/';
+        } else {
+            url = url.replace("\?back=", "");
+        }
+
+        document.getElementById("back").setAttribute("value", url);
+    </script>
+
 </body>
 </html>

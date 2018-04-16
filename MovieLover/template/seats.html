@@ -1,0 +1,169 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Movie Lover</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+.demo{width:700px; margin:40px auto 0 auto; min-height:450px;}
+@media screen and (max-width: 360px) {.demo {width:340px}}
+
+.front{width: 300px;margin: 5px 32px 45px 32px;background-color: #f0f0f0;	color: #666;text-align: center;padding: 3px;border-radius: 5px;}
+.booking-details {float: right;position: relative;width:200px;height: 450px; }
+.booking-details h3 {margin: 5px 5px 0 0;font-size: 16px;}
+.booking-details p{line-height:26px; font-size:16px; color:#999}
+.booking-details p span{color:#666}
+div.seatCharts-cell {color: #182C4E;height: 25px;width: 25px;line-height: 25px;margin: 3px;float: left;text-align: center;outline: none;font-size: 13px;}
+div.seatCharts-seat {color: #fff;cursor: pointer;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+div.seatCharts-row {height: 35px;}
+div.seatCharts-seat.available {background-color: #B9DEA0;}
+div.seatCharts-seat.focused {background-color: #76B474;border: none;}
+div.seatCharts-seat.selected {background-color: #E6CAC4;}
+div.seatCharts-seat.unavailable {background-color: #472B34;cursor: not-allowed;}
+div.seatCharts-container {border-right: 1px dotted #adadad;width: 400px;padding: 20px;float: left;}
+div.seatCharts-legend {padding-left: 0px;position: absolute;}
+ul.seatCharts-legendList {padding-left: 0px;}
+.seatCharts-legendItem{float:left; width:90px;margin-top: 10px;line-height: 2;}
+span.seatCharts-legendDescription {margin-left: 5px;line-height: 30px;}
+.checkout-button {display: block;width:80px; height:24px; line-height:20px;margin: 10px auto;border:1px solid #999;font-size: 14px; cursor:pointer}
+#selected-seats {max-height: 150px;overflow-y: auto;overflow-x: none;width: 200px;}
+#selected-seats li{float:left; width:72px; height:26px; line-height:26px; border:1px solid #d3d3d3; background:#f7f7f7; margin:6px; font-size:14px; font-weight:bold; text-align:center}
+</style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Movie Lover</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if username==None %}
+                <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% else %}
+                <li style="margin-top: 10px;font-size: 20px;color:  white;">Hi {{username}}</li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                {% end %}
+            </ul>
+        </div>
+    </nav>
+
+    <div id="main">
+        <div class="demo">
+            <div id="seat-map">
+                <div class="front">Screen</div>
+            </div>
+            <div class="booking-details">
+                <p>Movie Name：<span>{{ detail[0] }}</span></p>
+                <p>Time：<span>{{ detail[1] }}</span></p>
+                <p>Theater: <span> {{ detail[2] }} </span> </p>
+                <p>Selected Seat(s)：</p>
+                <ul id="selected-seats"></ul>
+                <p>Ticket(s)：<span id="counter">0</span></p>
+                <p>Amount：<b>$<span id="total">0</span></b></p>
+
+                <button class="checkout-button" onclick="">Checkout</button>
+
+                <div id="legend"></div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <br />
+    </div>
+    <script type="text/javascript" src="http://libs.useso.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ static_url("jquery.seat-charts.min.js")}}"></script>
+    <script type="text/javascript">
+var price = 9;
+    $(document).ready(function () {
+        var $cart = $('#selected-seats'), //seats
+            $counter = $('#counter'), //tickets
+            $total = $('#total'); //amount
+
+        var sc = $('#seat-map').seatCharts({
+            map: [
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aa__aa__aa'
+            ],
+            naming: {
+                top: false,
+                getLabel: function (character, row, column) {
+                    return column;
+                }
+            },
+            legend: {
+                node: $('#legend'),
+                items: [
+                    ['a', 'available', 'Avaliable'],
+                    ['a', 'unavailable', 'Reserved']
+                ]
+            },
+            click: function () {
+                if (this.status() == 'available' && sc.find('selected').length<6) {
+                    $('<li>' + 'Row' + (this.settings.row + 1) + 'No.' + this.settings.label + '</li>')
+                        .attr('id', 'cart-item-' + this.settings.id)
+                        .data('seatId', this.settings.id)
+                        .appendTo($cart);
+
+                    $counter.text(sc.find('selected').length + 1);
+                    $total.text(recalculateTotal(sc) + price);
+
+                    return 'selected';
+                } else if (this.status() == 'selected') {
+
+                    $counter.text(sc.find('selected').length - 1);
+
+                    $total.text(recalculateTotal(sc) - price);
+
+                    $('#cart-item-' + this.settings.id).remove();
+
+                    return 'available';
+                } else if (this.status() == 'unavailable') {
+                    return 'unavailable';
+                } else {
+                    return this.style();
+                }
+            }
+        });
+        sc.get({%raw reserved %}).status('unavailable');
+    $('.checkout-button').click(function () {
+        if (sc.find('selected').length == 0) {
+            alert('Please choose a seat.');
+            return;
+        }
+        var seats = JSON.stringify(sc.find('selected').seatIds);
+        window.location.replace('/show/' + {{ show_id }} +'/payment'+'?seats=' + seats);
+    });
+});
+function recalculateTotal(sc) {
+	var total = 0;
+	sc.find('selected').each(function () {
+		total += price;
+	});
+	return total;
+}
+    </script>
+
+    <div id="footer">
+        <p>Powered by helloweba.com <a href="http://www.helloweba.com">www.helloweba.com</a></p>
+    </div>
+</body>
+</html>

@@ -1,4 +1,5 @@
 import Settings
+import json
 import pymysql
 from Handlers.BaseHandler import BaseHandler
 class LoginHandler(BaseHandler):
@@ -12,7 +13,7 @@ class LoginHandler(BaseHandler):
     def post(self):
         username = self.get_argument("username", "")
         password = self.get_argument("password", "")
-        back =self.get_argument("back",'/')
+        back =self.get_argument("back")
         auth = self.check_permission(password, username)
         self.set_current_user(auth)
         if auth:
@@ -22,11 +23,10 @@ class LoginHandler(BaseHandler):
     def check_permission(self, password, username):
         if username == Settings.ADMIN_NM and password == Settings.ADMIN_PW:
             return Settings.ADMIN_ID
-        try:
-            cur=self.cur
-            cur.execute("select user_id from user where username='%s' and password='%s';" %(username,password))
-            u_id=cur.fetchone()
+        cur=self.cur
+        u=cur.execute("select user_id from user where username='%s' and password='%s';" %(username,password))
+        if u!=0:
+            u_id=cur.fetchone()[0]
             return u_id
-        except pymysql.Error as error:
-            self.render("login.html", error ="Login invalid")
-            return None
+        self.render("login.html", error ="Login invalid")
+        return None
