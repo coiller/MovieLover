@@ -42,7 +42,11 @@ class BaseHandler(tornado.web.RequestHandler):
         detail=cur.fetchone()
         return detail
 
-
+    def format_seats(self,seats):
+        for i in range(len(seats)):
+            tmp=seats[i].split('_')
+            seats[i]='Row %s No. %s' % (tmp[0],tmp[1])
+        return seats
 
 
 

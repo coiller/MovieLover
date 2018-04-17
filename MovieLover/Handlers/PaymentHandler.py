@@ -82,8 +82,3 @@ class PaymentHandler(BaseHandler):
         self.db.commit()
         self.render('success.html',detail=detail,seats=seats,username=username)
 
-    def format_seats(self,seats):
-        for seat in seats:
-            tmp=seat.split('_')
-            seat='Row %s No. %s' % (seat[0],seat[1])
-        return seats
