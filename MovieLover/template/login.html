@@ -1,30 +1,34 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Movie Lover</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ static_url("sign.css") }}">
 </head>
 <body>
     <form action="login" method="POST">
+    		<p> <br \> </p>
         <h1 align="center">Log in</h1>
+        <p> <br \> </p>
         <table align="center">
             <tbody>
                 <tr>
                     <td>Username:</td>
-                    <td><input type="text" name="username" required="required" /></td>
+                    <td><input type="text" class="form-control" name="username" required="required" placeholder="email@example.com" /></td>
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><input type="password" name="password" required="required"></td>
+                    <td><input type="password" class="form-control" name="password" required="required" placeholder="Password" ></td>
                 </tr>
                 <input id="back" type="hidden" name="back" value="" />
+
                 <tr>
-                    <td colspan="2" align="center"><input class="button" type="submit" value="Login" /></td>
+                    <td colspan="2" align="center"><input class="btn btn-dark" type="submit" value="Login" /></td>
                     <p class="hint" align="center">
                         {% if error !=None %}
                         {{error}}
@@ -35,6 +39,7 @@
         </table>
         <p class="link" align="center">Not have an account yet? <a href="signup">Go to sign up</a></p>
     </form>
+    
     <script>
         var url = window.location.search;
         if (url == "") {
