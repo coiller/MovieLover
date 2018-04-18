@@ -1,38 +1,41 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Movie Lover</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ static_url("sign.css") }}">
 </head>
 <body>
-
+		<div class="alert alert-dark" role="alert">
     <form action="signup" method="POST" onsubmit="return check()">
+    		<p> <br \> </p>
         <h1 align="center">Sign up</h1>
+        <p> <br \> </p>
         <table align="center">
             <tbody>
                 <tr>
                     <td>Username:</td>
-                    <td><input type="text" name="username" required="required" placeholder="eg: turing" /></td>
+                    <td><input type="text" class="form-control" name="username" required="required" placeholder="eg: turing" /></td>
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td><input type="text" name="email" required="required" placeholder="example@123.com" /></td>
+                    <td><input type="text" class="form-control" name="email" required="required" placeholder="example@123.com" /></td>
                 </tr>
                 <tr>
                     <td>Password:</td>
-                    <td><input type="password" name="password" required="required" placeholder="eg: 123456" /></td>
+                    <td><input type="password" class="form-control" name="password" required="required" placeholder="eg: 123456" /></td>
                 </tr>
                 <tr>
                     <td>Password Confirm:</td>
-                    <td><input type="password" name="password_conf" required="required" placeholder="Please confirm password" /></td>
+                    <td><input type="password" class="form-control" name="password_conf" required="required" placeholder="Please confirm password" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><input class="button" value="Sign up" type="submit" /></td>
+                    <td colspan="2" align="center"><input class="btn btn-dark" value="Sign up" type="submit" /></td>
                     <script>
 function check() {
                             var p = document.getElementsByName("password")[0].value;
@@ -54,5 +57,6 @@ function check() {
         </table>
         <p class="link" align="center">Already have an account? <a href="login">Go to login</a></p>
     </form>
+    </div>
 </body>
 </html>
