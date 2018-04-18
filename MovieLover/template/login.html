@@ -5,12 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ static_url("sign.css") }}">
 </head>
 <body>
+		<div class="alert alert-dark" role="alert">
     <form action="login" method="POST">
     		<p> <br \> </p>
         <h1 align="center">Log in</h1>
@@ -39,6 +41,7 @@
         </table>
         <p class="link" align="center">Not have an account yet? <a href="signup">Go to sign up</a></p>
     </form>
+    </div>
     
     <script>
         var url = window.location.search;
